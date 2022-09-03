@@ -16,5 +16,5 @@ int main(){
         }
         maxSum= max(maxSum,currentSum);
     }
-    cout<<endl<<maxSum;
+    cout<<endl<<maxSum;//hello nasim
 }
