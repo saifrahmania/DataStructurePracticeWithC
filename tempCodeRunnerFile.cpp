@@ -1,6 +1,5 @@
-int n;
-    cin>>n;
-     int arr[n];
-     for(int i = 0;i<n;i++){
-        cin>>arr[i];
-     }
+ // int a=10;
+    // //int* aptr = &a;
+    // cout<<*aptr<<endl;
+    // *aptr=20 ;
+    // //cout<<a<<endl;
