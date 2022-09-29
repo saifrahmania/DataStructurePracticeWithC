@@ -77,6 +77,130 @@ void inorderPrint(Node* root){
     inorderPrint(root->right);
 }
 
+void printLevelOrder(Node* root){
+    if(root==NULL){
+        return;
+    }
+    queue<Node*> q;
+    q.push(root);
+    q.push(NULL);
+    while(!q.empty()){
+        Node* node = q.front();
+        q.pop();
+        if(node!=NULL){
+            cout<<node->data<<" ";
+            if(node->left){
+                q.push(node->left);
+            }
+            if(node->right){
+                q.push(node->right);
+            }
+        }
+        else if(!q.empty()){
+            q.push(NULL);
+        }
+    }
+}
+
+int sumtAthK(Node* root, int K){
+    if(root==NULL){
+        return -1;
+    }
+    queue<Node*> q;
+    q.push(root);
+    q.push(NULL);
+    int level = 0;
+    int sum = 0;
+    while(!q.empty()){
+        Node* node = q.front();
+        q.pop();
+        if(node!=NULL){
+            if(level==K){
+                sum+=node->data;
+            }
+            if(node->left){
+                q.push(node->left);
+            }
+            if(node->right){
+                q.push(node->right);
+            }
+        }
+        else if(!q.empty()){
+            q.push(NULL);
+            level++;
+        }
+    }
+    return sum;
+}
+
+int countNodes(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    return 1+countNodes(root->left)+countNodes(root->right);
+}
+
+int sumNodes(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    return root->data+sumNodes(root->left)+sumNodes(root->right);
+}
+
+int countLeafNodes(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    if(root->left==NULL && root->right==NULL){
+        return 1;
+    }
+    return countLeafNodes(root->left)+countLeafNodes(root->right);
+}
+
+
+
+int height(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    return 1+max(height(root->left),height(root->right));
+}
+
+int calcHeight(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    int lheight = calcHeight(root->left);
+    int rheight = calcHeight(root->right);
+    return 1+max(lheight,rheight);
+}
+
+int calcDiameter(Node* root, int* height){
+    if(root==NULL){
+        *height = 0;
+        return 0;
+    }
+    int lh = 0, rh = 0;
+    int ld = calcDiameter(root->left,&lh);
+    int rd = calcDiameter(root->right,&rh);
+    int currDiameter = lh+rh+1;
+    *height = max(lh,rh)+1;
+    return max(currDiameter,max(ld,rd));
+
+}
+
+int diameter(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    int lheight = height(root->left);
+    int rheight = height(root->right);
+    int currDiameter = lheight+rheight+1;
+    int ldiameter = diameter(root->left);
+    int rdiameter = diameter(root->right);
+    return max(currDiameter,max(ldiameter,rdiameter));
+}
+
 int main(){
     // Node* root = new Node(1);
     // root->left = new Node(2);
@@ -91,10 +215,10 @@ int main(){
     // cout<<endl;
     // inorder(root);
     // return 0;
-    int preorder[] = {1,2,4,3,5};
-    int inorder []= {4,2,1,5,3};
-    Node* root = buildTree(preorder,inorder,0,4);
-    inorderPrint(root);
+    // int preorder[] = {1,2,4,3,5};
+    // int inorder []= {4,2,1,5,3};
+    // Node* root = buildTree(preorder,inorder,0,4);
+    // inorderPrint(root);
 
     return 0;
 
